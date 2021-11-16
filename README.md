@@ -39,6 +39,3 @@ Esse projeto foi desenvolvido em Kotlin, utilizando os seguintes recursos da lin
 * [Room](https://developer.android.com/training/data-storage/room)
 
 * [Retrofit](https://square.github.io/retrofit/)
-
-## 💻 Projeto
-
