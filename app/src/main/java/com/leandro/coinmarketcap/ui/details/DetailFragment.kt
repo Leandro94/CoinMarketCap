@@ -15,8 +15,9 @@ import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.leandro.coinmarketcap.R
 import com.leandro.coinmarketcap.databinding.FragmentDetailBinding
 import com.leandro.coinmarketcap.domain.model.Cryptocurrency
-import com.leandro.coinmarketcap.utils.*
-import com.leandro.coinmarketcap.utils.formatDoubleToStringCurrency
+import com.leandro.coinmarketcap.utils.formatDoubleToStringCurrencyWithSymbol
+import com.leandro.coinmarketcap.utils.getProgressDrawable
+import com.leandro.coinmarketcap.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,27 +56,25 @@ class DetailFragment : Fragment() {
         configBarData()
 
         with(binding) {
-            tvDCoinSymbol.text = cryptocurrency.symbol
-            tvDCoinName.text = cryptocurrency.name
+            tvSymbol.text = cryptocurrency.symbol
+            tvCoinName.text = cryptocurrency.name
+            tvValueMarketCapDiluted.text =
+                formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.dilutedMarketCap)
             tvPrice.text = formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.price)
             tvValueVolume24h.text =
                 formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.volume24h)
-            tvValueMarketCap.text = formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.marketCap)
-                cryptocurrency.quote.brl.marketCap
+            tvValueMarketCap.text =
+                formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.marketCap)
+            cryptocurrency.quote.brl.marketCap
             tvValueCirculatingSupply.text =
-                cryptocurrency.circulatingSupply.toString()
+                cryptocurrency.circulatingSupply
             context?.let {
-                ivDCoin.loadImage(
-                    IMAGE_URL + cryptocurrency.id + ".png",
+                ivCoin.loadImage(
+                    cryptocurrency.imgUrl,
                     getProgressDrawable(it)
                 )
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setChartData(): ArrayList<BarEntry> {
@@ -108,7 +107,7 @@ class DetailFragment : Fragment() {
             barChart.animate()
             barChart.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabel)
             barChart.xAxis.textSize = 11f
-            barChart.xAxis.textColor = resources.getColor(R.color.colorAccent)
+            barChart.xAxis.textColor = ContextCompat.getColor(requireContext(), R.color.colorAccent)
 
             barChart.xAxis.axisLineColor =
                 ContextCompat.getColor(requireContext(), R.color.colorAccent)
@@ -132,5 +131,10 @@ class DetailFragment : Fragment() {
             barChart.axisRight.gridColor =
                 ContextCompat.getColor(requireContext(), R.color.colorLineChart)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

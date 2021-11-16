@@ -19,4 +19,6 @@ data class BrlResponse(
     val percentChange7d: Double,
     @SerializedName("market_cap")
     val marketCap: Double,
+    @SerializedName("fully_diluted_market_cap")
+    val dilutedMarketCap: Double
 )

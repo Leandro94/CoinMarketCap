@@ -6,6 +6,8 @@ import com.leandro.coinmarketcap.data.model.CryptocurrencyResponse
 import com.leandro.coinmarketcap.domain.model.Brl
 import com.leandro.coinmarketcap.domain.model.Cryptocurrency
 import com.leandro.coinmarketcap.domain.model.Quote
+import com.leandro.coinmarketcap.utils.IMAGE_EXTENSION
+import com.leandro.coinmarketcap.utils.IMAGE_URL
 import com.leandro.coinmarketcap.utils.formatDoubleToDecimalTwoPlaces
 
 /**
@@ -25,7 +27,8 @@ fun CryptocurrencyResponse.toCryptocurrency(): Cryptocurrency {
         name = name,
         maxSupply = maxSupply?.let { formatDoubleToDecimalTwoPlaces(it) },
         circulatingSupply = circulatingSupply,
-        quote = quote
+        quote = quote,
+        imgUrl = IMAGE_URL + id + IMAGE_EXTENSION
     )
 }
 
@@ -36,7 +39,8 @@ fun BrlResponse.toBrl(): Brl {
         volume24h = formatDoubleToDecimalTwoPlaces(this.volume24h),
         percentChange24h = formatDoubleToDecimalTwoPlaces(this.percentChange24h),
         percentChange7d = formatDoubleToDecimalTwoPlaces(this.percentChange7d),
-        marketCap = formatDoubleToDecimalTwoPlaces(this.marketCap)
+        marketCap = formatDoubleToDecimalTwoPlaces(this.marketCap),
+        dilutedMarketCap =  formatDoubleToDecimalTwoPlaces(this.dilutedMarketCap)
     )
 }
 
@@ -54,10 +58,12 @@ fun Cryptocurrency.toEntity(): CryptocurrencyEntity {
         percentChange1h = this.quote.brl.percentChange1h,
         percentChange24h = this.quote.brl.percentChange24h,
         percentChange7d = this.quote.brl.percentChange7d,
-        maxSupply = this.maxSupply,
+        maxSupply = this.maxSupply ?: 0.0,
         volume24h = this.quote.brl.volume24h,
         circulatingSupply = this.circulatingSupply,
-        marketCap = this.quote.brl.marketCap
+        marketCap = this.quote.brl.marketCap,
+        imgUrl = this.imgUrl ?: "",
+        dilutedMarketCap = this.quote.brl.dilutedMarketCap
     )
 }
 
@@ -70,7 +76,8 @@ fun List<CryptocurrencyEntity>.toListCryptocurrency(): List<Cryptocurrency> {
             percentChange24h = obj.percentChange24h,
             percentChange7d = obj.percentChange7d,
             volume24h = obj.volume24h,
-            marketCap = obj.marketCap
+            marketCap = obj.marketCap,
+            dilutedMarketCap = obj.dilutedMarketCap
         )
         val quote = Quote(
             brl = brl
@@ -81,7 +88,8 @@ fun List<CryptocurrencyEntity>.toListCryptocurrency(): List<Cryptocurrency> {
             name = obj.name,
             maxSupply = obj.maxSupply,
             circulatingSupply = obj.circulatingSupply,
-            quote = quote
+            quote = quote,
+            imgUrl = IMAGE_URL + obj.id + IMAGE_EXTENSION
         )
         coins.add(coin)
     }

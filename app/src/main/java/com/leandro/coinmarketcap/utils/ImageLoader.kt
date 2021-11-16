@@ -37,7 +37,7 @@ fun getProgressDrawable(context: Context): CircularProgressDrawable {
 fun ImageView.loadImage(uri: String?, progressDrawble: CircularProgressDrawable) {
     val options = RequestOptions()
         .placeholder(progressDrawble)
-        .error(R.drawable.ic_image_grey_24)
+        .error(R.drawable.ic_image_error_grey_24)
     Glide.with(context).setDefaultRequestOptions(options)
         .load(uri)
         .into(this)

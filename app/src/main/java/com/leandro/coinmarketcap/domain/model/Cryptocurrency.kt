@@ -13,5 +13,6 @@ data class Cryptocurrency(
     val symbol: String,
     val maxSupply: Double?,
     val circulatingSupply: String,
-    val quote: Quote
+    val quote: Quote,
+    val imgUrl: String?,
 ) : Parcelable

@@ -14,7 +14,7 @@ class RemoteRepository @Inject constructor(
 ) : Repository.RemoteData {
     override suspend fun getCoins(): DataState<List<Cryptocurrency>>? {
         return try {
-            when (val response = api.getCryptocurrencys().parseResponse()) {
+            when (val response = api.getCoins().parseResponse()) {
                 is DataState.OnSuccess -> response.data?.data?.let { it ->
                     DataState.OnSuccess(it.responseToListCryptocurrency())
                 }

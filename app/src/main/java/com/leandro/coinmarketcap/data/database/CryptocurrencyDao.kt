@@ -10,7 +10,7 @@ import com.leandro.coinmarketcap.data.database.entity.CryptocurrencyEntity
  * Created by Leandro.Reis on 09/11/2021.
  */
 @Dao
-interface CoinDao {
+interface CryptocurrencyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(cryptocurrencies: List<CryptocurrencyEntity>): List<Long>
 

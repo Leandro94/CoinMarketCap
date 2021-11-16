@@ -17,5 +17,5 @@ data class CryptocurrencyResponse(
     @SerializedName("circulating_supply")
     val circulatingSupply: String,
     @SerializedName("quote")
-    val quote: QuoteResponse
+    val quote: QuoteResponse,
 )

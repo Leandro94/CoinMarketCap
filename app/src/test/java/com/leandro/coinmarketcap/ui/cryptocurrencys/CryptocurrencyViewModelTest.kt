@@ -8,6 +8,7 @@ import com.leandro.coinmarketcap.domain.model.Data
 import com.leandro.coinmarketcap.domain.model.Quote
 import com.leandro.coinmarketcap.domain.usecase.GetLocalListUseCase
 import com.leandro.coinmarketcap.domain.usecase.GetRemoteListUseCase
+import com.leandro.coinmarketcap.utils.IMAGE_URL
 import io.mockk.MockKAnnotations.init
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -134,13 +135,22 @@ class CryptocurrencyViewModelTest {
         val brl = Brl(
             349287.4418665296,
             -0.23579847,
-            "187062823611.19772",
+            187062823611.1977,
             0.26901555,
             2.69530735,
-            "6591595423556.306"
+            6591595423556.306,
+            7136608293421.985
         )
         val quote = Quote(brl)
-        val cryptocurrency = Cryptocurrency("1", "Bitcoin", "BTC", "21000000", "18871550", quote)
+        val cryptocurrency = Cryptocurrency(
+            "1",
+            "Bitcoin",
+            "BTC",
+            21000000.00,
+            "18871550",
+            quote,
+            IMAGE_URL + 1 + ".png"
+        )
         val list: ArrayList<Cryptocurrency> = arrayListOf()
         list.add(cryptocurrency)
         return list

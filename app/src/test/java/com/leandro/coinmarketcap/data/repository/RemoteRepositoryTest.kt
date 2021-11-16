@@ -10,10 +10,10 @@ import com.leandro.coinmarketcap.data.model.QuoteResponse
 import com.leandro.coinmarketcap.domain.model.Brl
 import com.leandro.coinmarketcap.domain.model.Cryptocurrency
 import com.leandro.coinmarketcap.domain.model.Quote
+import com.leandro.coinmarketcap.utils.IMAGE_URL
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
@@ -45,21 +45,9 @@ class RemoteRepositoryTest {
     }
 
     @Test
-    fun `repository should call the service and get a response that already equals success`() =
-        runBlockingTest {
-            coEvery {
-                api.getCryptocurrencys()
-            } returns Response.success(getData())
-
-            val result = repository.getCoins()
-
-            assertEquals(DataState.OnSuccess(getListCryptocurrency()), result)
-        }
-
-    @Test
     fun `repository should call the service and get a successful response`() = runBlockingTest {
         coEvery {
-            api.getCryptocurrencys()
+            api.getCoins()
         } returns Response.success(getData())
 
         val result = repository.getCoins()
@@ -70,7 +58,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a error response`() = runBlockingTest {
         coEvery {
-            api.getCryptocurrencys()
+            api.getCoins()
         } returns getResponseError()
 
         val result = repository.getCoins()
@@ -81,7 +69,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a exception response`() = runBlockingTest {
         coEvery {
-            api.getCryptocurrencys().parseResponse()
+            api.getCoins().parseResponse()
         } throws Exception()
 
         val result = repository.getCoins()
@@ -92,7 +80,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a exception response `() = runBlockingTest {
         coEvery {
-            api.getCryptocurrencys()
+            api.getCoins()
         } throws Exception()
 
         val result = repository.getCoins()
@@ -108,32 +96,17 @@ class RemoteRepositoryTest {
         val brl = BrlResponse(
             349287.4418665296,
             -0.23579847,
-            "187062823611.19772",
+            187062823611.19772,
             0.26901555,
             2.69530735,
-            "6591595423556.306"
+            6591595423556.306,
+            7136608293421.985
         )
         val quote = QuoteResponse(brl)
         val cryptocurrency =
-            CryptocurrencyResponse("1", "Bitcoin", "BTC", "21000000", "18871550", quote)
+            CryptocurrencyResponse("1", "Bitcoin", "BTC", 21000000.00, "18871550", quote)
         val list: ArrayList<CryptocurrencyResponse> = arrayListOf()
         list.add(cryptocurrency)
         return DataResponse(list)
-    }
-
-    private fun getListCryptocurrency(): List<Cryptocurrency> {
-        val brl = Brl(
-            349287.4418665296,
-            -0.23579847,
-            "187062823611.19772",
-            0.26901555,
-            2.69530735,
-            "6591595423556.306"
-        )
-        val quote = Quote(brl)
-        val cryptocurrency = Cryptocurrency("1", "Bitcoin", "BTC", "21000000", "18871550", quote)
-        val list: ArrayList<Cryptocurrency> = arrayListOf()
-        list.add(cryptocurrency)
-        return list
     }
 }

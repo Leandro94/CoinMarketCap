@@ -1,10 +1,10 @@
 package com.leandro.coinmarketcap.ui.cryptocurrencys
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.SearchView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -24,7 +24,7 @@ class CryptocurrencyFragment : Fragment() {
     private val searchList = arrayListOf<Cryptocurrency>()
     private val adapterItemsList = arrayListOf<Cryptocurrency>()
 
-    private val localAdapter by lazy {
+    val localAdapter by lazy {
         LocalAdapter { view, cryptocurrency, position ->
             when (view.id) {
                 R.id.cv_item -> {
@@ -48,8 +48,8 @@ class CryptocurrencyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewActionsRequest()
-        binding.rcvCoinsFragment.apply {
+        viewActionsStartRequest()
+        binding.rcvCryptoFragment.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = localAdapter
@@ -61,16 +61,27 @@ class CryptocurrencyFragment : Fragment() {
     private fun setListeners() {
         with(binding) {
             srlRefresh.setOnRefreshListener {
-                viewActionsRequest()
+                viewActionsStartRequest()
                 viewModel.getRemoteList()
+            }
+            screenError.btnErrorRefresh.setOnClickListener {
+                viewActionsStartRequest()
+                it.postDelayed({ viewModel.getRemoteList() }, 500)
             }
         }
     }
 
-    private fun viewActionsRequest() {
-        binding.rcvCoinsFragment.visibility = View.GONE
+    private fun viewActionsStartRequest() {
+        //binding.rcvCryptoFragment.visibility = View.GONE
         binding.pgbRequest.visibility = View.VISIBLE
         binding.srlRefresh.isRefreshing = false
+        binding.screenError.root.visibility = View.GONE
+    }
+
+    private fun viewActionsDatabaseEmpty() {
+        binding.rcvCryptoFragment.visibility = View.GONE
+        binding.pgbRequest.visibility = View.GONE
+        binding.screenError.root.visibility = View.VISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -123,12 +134,7 @@ class CryptocurrencyFragment : Fragment() {
             if (state is DataState.OnSuccess) {
                 updateListRecyclerView(state.data)
             } else if (state is DataState.OnException) {
-                Toast.makeText(
-                    activity,
-                    getString(R.string.message_database_exception),
-                    Toast.LENGTH_LONG
-                ).show()
-                Log.d("xxx", "erro "+state.e.message)
+                binding.screenError.root.visibility = View.VISIBLE
             }
             binding.pgbRequest.visibility = View.GONE
         })
@@ -136,18 +142,26 @@ class CryptocurrencyFragment : Fragment() {
 
     private fun updateListRecyclerView(list: List<Cryptocurrency>?) {
         if (list.isNullOrEmpty()) {
-            Toast.makeText(
-                activity,
-                getString(R.string.message_database_empty),
-                Toast.LENGTH_LONG
-            ).show()
+            (activity as AppCompatActivity?)?.supportActionBar?.hide()
+            viewActionsDatabaseEmpty()
             return
         }
-        binding.rcvCoinsFragment.visibility = View.VISIBLE
+        (activity as AppCompatActivity?)?.supportActionBar?.show()
+        checkVisibilityViews()
+
         localAdapter.clearList()
         localAdapter.submitList(list as MutableList<Cryptocurrency>?)
         adapterItemsList.clear()
         adapterItemsList.addAll(list)
+    }
+
+    private fun checkVisibilityViews() {
+        if (binding.screenError.root.visibility != View.GONE) {
+            binding.screenError.root.visibility = View.GONE
+        }
+        if (binding.rcvCryptoFragment.visibility != View.VISIBLE) {
+            binding.rcvCryptoFragment.visibility = View.VISIBLE
+        }
     }
 
     override fun onDestroyView() {

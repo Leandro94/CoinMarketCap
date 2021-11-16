@@ -23,13 +23,3 @@ class GetRemoteListUseCase @Inject constructor(
         return result
     }
 }
-
-/*
-  val response = repository.getCoins()
-        if (response is DataState.OnSuccess) {
-            response.data.let {
-                saveLocalListUseCase.invoke(SaveLocalListUseCase.Params(listCryptocurrency = it))
-            }
-        }
-        return response
- */

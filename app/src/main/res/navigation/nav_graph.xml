@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/CryptocurrencyFragment"
         android:name="com.leandro.coinmarketcap.ui.cryptocurrencys.CryptocurrencyFragment"
-        android:label="Criptomoedas"
+        android:label="Coin Market Cap"
         tools:layout="@layout/fragment_cryptocurrency">
 
         <argument

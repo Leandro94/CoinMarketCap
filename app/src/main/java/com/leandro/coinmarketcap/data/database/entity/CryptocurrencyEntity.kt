@@ -44,5 +44,11 @@ data class CryptocurrencyEntity(
     val circulatingSupply: String,
 
     @ColumnInfo(name = "marketCap")
-    val marketCap: Double
+    val marketCap: Double,
+
+    @ColumnInfo(name = "imgUrl")
+    val imgUrl: String?,
+
+    @ColumnInfo(name = "dilutedMarketCap")
+    val dilutedMarketCap: Double
 )

@@ -6,4 +6,13 @@
     <string name="message_service_error">Não foi possível conectar ao serviço remoto.</string>
     <string name="message_database_empty">Não foi encontrado nenhum registro local.</string>
     <string name="message_database_exception">Ocorreu um erro ao acessar os dados locais.</string>
+    <string name="error_message">Não foi encontrado nenhum registro local.\nTente novamente mais tarde.</string>
+    <string name="try_again">Tentar novamente</string>
+    <string name="volume_24h">Volume (24h):</string>
+    <string name="circulating_supply">Fornecimento circulante:</string>
+    <string name="market_cap">Cap. de mercado:</string>
+    <string name="market_cap_diluted">Cap. de mercado diluída:</string>
+    <string name="description_iv_detail">Imagem da criptomoeda</string>
+    <string name="text_divider">|</string>
+    <string name="graph_percents">Gráfico de variações:</string>
 </resources>

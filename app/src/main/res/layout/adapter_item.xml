@@ -23,7 +23,7 @@
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_gravity="center|center_horizontal|center_vertical"
-            android:layout_margin="8dp"
+            android:layout_margin="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,17 +31,18 @@
 
         <TextView
             android:id="@+id/tv_symbol"
-            style="@style/TitleCardList"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@+id/iv_coin"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="BTC" />
 
         <TextView
             android:id="@+id/tv_divider"
-            style="@style/TitleCardList"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -51,7 +52,7 @@
 
         <TextView
             android:id="@+id/tv_name"
-            style="@style/TitleCardList"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -61,10 +62,12 @@
 
         <TextView
             android:id="@+id/tv_price"
-            style="@style/TitleCardList"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/tv_1h"
             app:layout_constraintStart_toEndOf="@+id/iv_coin"
             app:layout_constraintTop_toBottomOf="@+id/tv_symbol"
@@ -72,17 +75,18 @@
 
         <TextView
             android:id="@+id/tv_1h"
-            style="@style/TitleCardList"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="8dp"
             android:text="Variação 1h"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/iv_coin" />
 
         <TextView
             android:id="@+id/tv_value_1h"
-            style="@style/TitleCardList"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"

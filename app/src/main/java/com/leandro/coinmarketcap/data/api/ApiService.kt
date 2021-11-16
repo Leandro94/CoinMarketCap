@@ -8,6 +8,6 @@ import retrofit2.http.GET
  * Created by Leandro.Reis on 09/11/2021.
  */
 interface ApiService {
-    @GET("/v1/cryptocurrency/listings/latest?limit=30&convert=BRL")
-    suspend fun getCryptocurrencys(): Response<DataResponse?>?
+    @GET("/v1/cryptocurrency/listings/latest?limit=40&convert=BRL")
+    suspend fun getCoins(): Response<DataResponse?>?
 }

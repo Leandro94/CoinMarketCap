@@ -12,14 +12,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.leandro.coinmarketcap.R
 import com.leandro.coinmarketcap.databinding.AdapterItemBinding
 import com.leandro.coinmarketcap.domain.model.Cryptocurrency
-import com.leandro.coinmarketcap.utils.*
+import com.leandro.coinmarketcap.utils.formatDoubleToStringCurrency
+import com.leandro.coinmarketcap.utils.formatDoubleToStringCurrencyWithSymbol
+import com.leandro.coinmarketcap.utils.getProgressDrawable
+import com.leandro.coinmarketcap.utils.loadImage
 
 /**
  * Created by Leandro.Reis on 15/11/2021.
  */
 class LocalAdapter(
     private val onClickListener: (view: View, cryptocurrency: Cryptocurrency, position: Int) -> Unit
-) : ListAdapter<Cryptocurrency, LocalAdapter.ViewHolder>(LocalAdapter) {
+) : ListAdapter<Cryptocurrency, LocalAdapter.LocalViewHolder>(LocalAdapter) {
 
     private val list = arrayListOf<Cryptocurrency>()
 
@@ -33,25 +36,24 @@ class LocalAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocalViewHolder {
         val biding = AdapterItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )
-        return ViewHolder(biding, onClickListener)
+        return LocalViewHolder(biding, onClickListener)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holderLocal: LocalViewHolder, position: Int) {
         val cryptocurrency = list[position]
-        holder.viewBiding(cryptocurrency)
+        holderLocal.viewBiding(cryptocurrency)
     }
 
     override fun getItemCount() = list.size
 
-    inner class ViewHolder(
+    inner class LocalViewHolder(
         private val biding: AdapterItemBinding,
         private val onClickListener: (view: View, cryptocurrency: Cryptocurrency, position: Int) -> Unit
     ) : RecyclerView.ViewHolder(biding.root) {
-
         fun viewBiding(cryptocurrency: Cryptocurrency) {
             biding.apply {
                 formatterStyle(
@@ -59,13 +61,14 @@ class LocalAdapter(
                     tvValue1h,
                     ivPercent1h
                 )
-                tvPrice.text = formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.price)
+                tvPrice.text =
+                    formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.price)
                 tvName.text = cryptocurrency.name
                 tvSymbol.text = cryptocurrency.symbol
                 tvValue1h.text =
                     formatDoubleToStringCurrency(cryptocurrency.quote.brl.percentChange1h)
                 ivCoin.loadImage(
-                    IMAGE_URL + cryptocurrency.id + IMAGE_EXTENSION,
+                    cryptocurrency.imgUrl,
                     getProgressDrawable(biding.ivCoin.context)
                 )
 
@@ -78,7 +81,7 @@ class LocalAdapter(
         }
     }
 
-    fun formatterStyle(price: Double, txt_valor: TextView, imageView: ImageView) {
+    private fun formatterStyle(price: Double, txt_valor: TextView, imageView: ImageView) {
         if (price < 0) {
             txt_valor.setTextColor(Color.parseColor("#FF0000"))
             imageView.setImageResource(R.drawable.ic_trending_down_red_24)
@@ -92,12 +95,12 @@ class LocalAdapter(
         }
     }
 
-    override fun submitList(list: MutableList<Cryptocurrency>?) {
+    /*override fun submitList(list: MutableList<Cryptocurrency>?) {
         super.submitList(list?.distinct())
         list?.let {
             this.list.addAll(it)
         }
-    }
+    }*/
 
     fun clearList() {
         list.clear()

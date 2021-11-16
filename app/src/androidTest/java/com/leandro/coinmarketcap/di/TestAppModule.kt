@@ -11,11 +11,11 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Named
 
 /**
- * Created by Leandro.Reis on 13/11/2021.
+ * Created by Leandro.Reis on 16/11/2021.
  */
 @Module
 @InstallIn(SingletonComponent::class)
-class DatabaseModuleTest {
+object TestAppModule {
     @Provides
     @Named(AppDatabase.DATABASE_NAME)
     fun provideInMemoryDb(@ApplicationContext context: Context) =

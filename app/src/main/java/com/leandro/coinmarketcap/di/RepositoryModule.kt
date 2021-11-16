@@ -1,7 +1,7 @@
 package com.leandro.coinmarketcap.di
 
 import com.leandro.coinmarketcap.data.api.ApiService
-import com.leandro.coinmarketcap.data.database.CoinDao
+import com.leandro.coinmarketcap.data.database.CryptocurrencyDao
 import com.leandro.coinmarketcap.data.repository.LocalRepository
 import com.leandro.coinmarketcap.data.repository.RemoteRepository
 import com.leandro.coinmarketcap.data.repository.Repository
@@ -27,7 +27,7 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideLocalRepository(dao: CoinDao): Repository.LocalData {
+    fun provideLocalRepository(dao: CryptocurrencyDao): Repository.LocalData {
         return LocalRepository(dao)
     }
 }
