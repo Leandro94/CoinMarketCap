@@ -20,4 +20,5 @@
     <color name="colorLineChart">#4A4848</color>
     <color name="textColor">#C1C1C1</color>
     <color name="colorBarChart">#BF3030</color>
+    <color name="colorButtonScreenError">#088548</color>
 </resources>

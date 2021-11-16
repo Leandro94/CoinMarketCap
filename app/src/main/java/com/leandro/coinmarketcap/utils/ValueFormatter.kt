@@ -47,7 +47,10 @@ fun formatDoubleToStringCurrencyWithSymbol(value: Double): String {
     return symbol + " " + format.format(value)
 }
 
-fun formatDoubleToDecimalTwoPlaces(value: Double, places: Int = 2): Double {
+fun formatDoubleToDecimalTwoPlaces(value: Double?, places: Int = 3): Double {
+    if (value == null) {
+        return 0.00
+    }
     val price: Double
     val factor = 10.0.pow(places.toDouble()).toLong()
     price = value * factor

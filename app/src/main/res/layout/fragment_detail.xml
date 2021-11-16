@@ -9,146 +9,181 @@
     tools:context=".ui.details.DetailFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/csl_detail_fragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/background">
 
         <TextView
             android:id="@+id/tv_price"
-            style="@style/TitleCardList"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
-            tools:text="R$ 8,00"
-            app:layout_constraintStart_toEndOf="@+id/iv_d_coin"
-            app:layout_constraintTop_toBottomOf="@+id/tv_d_coinSymbol" />
+            app:layout_constraintStart_toEndOf="@+id/iv_coin"
+            app:layout_constraintTop_toBottomOf="@+id/tv_symbol"
+            tools:text="R$ 8,00" />
 
         <TextView
-            android:id="@+id/tv_valueVolume24h"
-            style="@style/TitleCardList"
+            android:id="@+id/tv_value_volume_24h"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:text="0.00"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_volume24h" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_volume_24h"
+            tools:text="9.00" />
 
         <TextView
-            android:id="@+id/tv_valueMarketCap"
-            style="@style/TitleCardList"
+            android:id="@+id/tv_value_market_cap"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="10dp"
-            android:text="0.00"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_marketCap" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_market_cap"
+            tools:text="9.00" />
 
         <TextView
-            android:id="@+id/tv_valueCirculatingSupply"
-            style="@style/TitleCardList"
+            android:id="@+id/tv_value_circulating_supply"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_circulating_supply"
+            tools:text="9.00" />
+
+        <TextView
+            android:id="@+id/tv_graph"
+            style="@style/TextCardList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="0.00"
-            app:layout_constraintStart_toEndOf="@+id/tv_circulatingSupply"
-            app:layout_constraintTop_toBottomOf="@+id/tv_valueMarketCap" />
+            android:text="@string/graph_percents"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_value_circulating_supply" />
 
         <TextView
-            android:id="@+id/tv_volume24h"
-            style="@style/TitleCardList"
+            android:id="@+id/tv_volume_24h"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="Volume (24h):"
+            android:text="@string/volume_24h"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_d_coin" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_coin" />
 
         <TextView
-            android:id="@+id/tv_circulatingSupply"
-            style="@style/TitleCardList"
+            android:id="@+id/tv_circulating_supply"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="Fornecimento circulante:"
+            android:text="@string/circulating_supply"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_valueMarketCap" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_value_market_cap_diluted" />
 
         <TextView
-            android:id="@+id/tv_marketCap"
-            style="@style/TitleCardList"
+            android:id="@+id/tv_market_cap"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:text="Cap. de mercado:"
+            android:text="@string/market_cap"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_valueVolume24h" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_value_volume_24h" />
 
         <TextView
-            android:id="@+id/tv_d_coinName"
-            style="@style/TitleCardList"
+            android:id="@+id/tv_market_cap_diluted"
+            style="@style/TextCardList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/market_cap_diluted"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_value_market_cap" />
+
+        <TextView
+            android:id="@+id/tv_value_market_cap_diluted"
+            style="@style/TextCardList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_market_cap_diluted"
+            tools:text="9.00" />
+
+        <TextView
+            android:id="@+id/tv_coin_name"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
-            android:text="Name"
-            app:layout_constraintStart_toEndOf="@+id/tv_d_dividerItem"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/tv_divider_item"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Name" />
 
         <TextView
-            android:id="@+id/tv_d_dividerItem"
-            style="@style/TitleCardList"
+            android:id="@+id/tv_divider_item"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="|"
-            app:layout_constraintStart_toEndOf="@+id/tv_d_coinSymbol"
+            android:text="@string/text_divider"
+            app:layout_constraintStart_toEndOf="@+id/tv_symbol"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/iv_d_coin"
+            android:id="@+id/iv_coin"
             android:layout_width="65dp"
             android:layout_height="65dp"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="18dp"
             android:layout_marginTop="16dp"
+            android:contentDescription="@string/description_iv_detail"
             android:minHeight="200dp"
             android:scaleType="fitCenter"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_image_grey_24"
+            app:srcCompat="@drawable/ic_image_error_grey_24"
             tools:ignore="VectorDrawableCompat" />
 
         <TextView
-            android:id="@+id/tv_d_coinSymbol"
-            style="@style/TitleCardList"
+            android:id="@+id/tv_symbol"
+            style="@style/TextCardList"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="12dp"
-            android:text="Symbol"
-            app:layout_constraintStart_toEndOf="@+id/iv_d_coin"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/iv_coin"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Symbol" />
 
         <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChart"
+            android:id="@+id/bar_chart"
             android:layout_width="match_parent"
             android:layout_height="400dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_valueCirculatingSupply" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_graph" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

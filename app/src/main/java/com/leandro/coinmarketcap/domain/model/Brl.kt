@@ -14,4 +14,5 @@ data class Brl(
     val percentChange24h: Double,
     val percentChange7d: Double,
     val marketCap: Double,
+    val dilutedMarketCap: Double
 ) : Parcelable

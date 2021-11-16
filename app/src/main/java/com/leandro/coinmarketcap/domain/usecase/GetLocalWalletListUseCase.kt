@@ -2,7 +2,7 @@ package com.leandro.coinmarketcap.domain.usecase
 
 import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.data.repository.LocalRepository
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
+import com.leandro.coinmarketcap.domain.model.Coin
 import javax.inject.Inject
 
 /**
@@ -10,8 +10,8 @@ import javax.inject.Inject
  */
 class GetLocalWalletListUseCase @Inject constructor(
     private val repository: LocalRepository
-) : BaseUseCase.Empty<DataState<List<Cryptocurrency>?>?> {
-    override suspend fun invoke(): DataState<List<Cryptocurrency>?>? {
+) : BaseUseCase.Empty<DataState<List<Coin>?>?> {
+    override suspend fun invoke(): DataState<List<Coin>?>? {
         return try {
             DataState.OnSuccess(repository.getAll())
         } catch (e: Exception) {

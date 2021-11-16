@@ -14,9 +14,10 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.leandro.coinmarketcap.R
 import com.leandro.coinmarketcap.databinding.FragmentDetailBinding
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
-import com.leandro.coinmarketcap.utils.*
-import com.leandro.coinmarketcap.utils.formatDoubleToStringCurrency
+import com.leandro.coinmarketcap.domain.model.Coin
+import com.leandro.coinmarketcap.utils.formatDoubleToStringCurrencyWithSymbol
+import com.leandro.coinmarketcap.utils.getProgressDrawable
+import com.leandro.coinmarketcap.utils.loadImage
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -24,7 +25,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val args by navArgs<DetailFragmentArgs>()
-    private lateinit var cryptocurrency: Cryptocurrency
+    private lateinit var coin: Coin
     private val entries = ArrayList<BarEntry>()
 
     override fun onCreateView(
@@ -37,9 +38,9 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        args.detailsArgs?.let { cryptocurrency = it }
+        args.detailsArgs?.let { coin = it }
 
-        if (!this::cryptocurrency.isInitialized) {
+        if (!this::coin.isInitialized) {
             findNavController().popBackStack()
             return
         }
@@ -49,33 +50,31 @@ class DetailFragment : Fragment() {
     }
 
     private fun setInfosLayout() {
-        entries.add(BarEntry(1f, cryptocurrency.quote.brl.percentChange1h.toFloat()))
-        entries.add(BarEntry(2f, cryptocurrency.quote.brl.percentChange24h.toFloat()))
-        entries.add(BarEntry(3f, cryptocurrency.quote.brl.percentChange7d.toFloat()))
+        entries.add(BarEntry(1f, coin.quote.brl.percentChange1h.toFloat()))
+        entries.add(BarEntry(2f, coin.quote.brl.percentChange24h.toFloat()))
+        entries.add(BarEntry(3f, coin.quote.brl.percentChange7d.toFloat()))
         configBarData()
 
         with(binding) {
-            tvDCoinSymbol.text = cryptocurrency.symbol
-            tvDCoinName.text = cryptocurrency.name
-            tvPrice.text = formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.price)
+            tvSymbol.text = coin.symbol
+            tvCoinName.text = coin.name
+            tvValueMarketCapDiluted.text =
+                formatDoubleToStringCurrencyWithSymbol(coin.quote.brl.dilutedMarketCap)
+            tvPrice.text = formatDoubleToStringCurrencyWithSymbol(coin.quote.brl.price)
             tvValueVolume24h.text =
-                formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.volume24h)
-            tvValueMarketCap.text = formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.marketCap)
-                cryptocurrency.quote.brl.marketCap
+                formatDoubleToStringCurrencyWithSymbol(coin.quote.brl.volume24h)
+            tvValueMarketCap.text =
+                formatDoubleToStringCurrencyWithSymbol(coin.quote.brl.marketCap)
+            coin.quote.brl.marketCap
             tvValueCirculatingSupply.text =
-                cryptocurrency.circulatingSupply.toString()
+                coin.circulatingSupply
             context?.let {
-                ivDCoin.loadImage(
-                    IMAGE_URL + cryptocurrency.id + ".png",
+                ivCoin.loadImage(
+                    coin.imgUrl,
                     getProgressDrawable(it)
                 )
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     private fun setChartData(): ArrayList<BarEntry> {
@@ -108,7 +107,7 @@ class DetailFragment : Fragment() {
             barChart.animate()
             barChart.xAxis.valueFormatter = IndexAxisValueFormatter(xAxisLabel)
             barChart.xAxis.textSize = 11f
-            barChart.xAxis.textColor = resources.getColor(R.color.colorAccent)
+            barChart.xAxis.textColor = ContextCompat.getColor(requireContext(), R.color.colorAccent)
 
             barChart.xAxis.axisLineColor =
                 ContextCompat.getColor(requireContext(), R.color.colorAccent)
@@ -132,5 +131,10 @@ class DetailFragment : Fragment() {
             barChart.axisRight.gridColor =
                 ContextCompat.getColor(requireContext(), R.color.colorLineChart)
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

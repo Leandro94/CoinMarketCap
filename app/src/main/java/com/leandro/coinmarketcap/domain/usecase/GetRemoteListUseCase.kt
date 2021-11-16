@@ -2,7 +2,7 @@ package com.leandro.coinmarketcap.domain.usecase
 
 import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.data.repository.RemoteRepository
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
+import com.leandro.coinmarketcap.domain.model.Coin
 import javax.inject.Inject
 
 /**
@@ -12,24 +12,14 @@ import javax.inject.Inject
 class GetRemoteListUseCase @Inject constructor(
     private val repository: RemoteRepository,
     private val saveLocalListUseCase: SaveLocalListUseCase
-) : BaseUseCase.Empty<DataState<List<Cryptocurrency>>?> {
-    override suspend fun invoke(): DataState<List<Cryptocurrency>>? {
+) : BaseUseCase.Empty<DataState<List<Coin>>?> {
+    override suspend fun invoke(): DataState<List<Coin>>? {
         val result = repository.getCoins()
         if (result is DataState.OnSuccess) {
             result.data.let {
-                saveLocalListUseCase.invoke(SaveLocalListUseCase.Params(listCryptocurrency = it))
+                saveLocalListUseCase.invoke(SaveLocalListUseCase.Params(listCoin = it))
             }
         }
         return result
     }
 }
-
-/*
-  val response = repository.getCoins()
-        if (response is DataState.OnSuccess) {
-            response.data.let {
-                saveLocalListUseCase.invoke(SaveLocalListUseCase.Params(listCryptocurrency = it))
-            }
-        }
-        return response
- */

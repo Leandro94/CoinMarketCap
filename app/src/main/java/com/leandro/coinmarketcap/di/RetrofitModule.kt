@@ -43,8 +43,8 @@ object RetrofitModule {
     @Provides
     fun provideOkHttpClient(logging: HttpLoggingInterceptor): OkHttpClient {
         val client = OkHttpClient.Builder()
-            .readTimeout(5, TimeUnit.SECONDS)
-            .connectTimeout(5, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
+            .connectTimeout(10, TimeUnit.SECONDS)
             .addInterceptor { chain ->
                 val builder = chain.request().newBuilder()
                 builder.header(KEY, KEY_VALUE)

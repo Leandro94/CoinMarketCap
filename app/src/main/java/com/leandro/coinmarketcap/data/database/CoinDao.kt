@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.leandro.coinmarketcap.data.database.entity.CryptocurrencyEntity
+import com.leandro.coinmarketcap.data.database.entity.CoinEntity
 
 /**
  * Created by Leandro.Reis on 09/11/2021.
@@ -12,14 +12,14 @@ import com.leandro.coinmarketcap.data.database.entity.CryptocurrencyEntity
 @Dao
 interface CoinDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(cryptocurrencies: List<CryptocurrencyEntity>): List<Long>
+    suspend fun insertAll(coins: List<CoinEntity>): List<Long>
 
-    @Query("SELECT * FROM cryptocurrency")
-    suspend fun getAll(): List<CryptocurrencyEntity>?
+    @Query("SELECT * FROM coin")
+    suspend fun getAll(): List<CoinEntity>?
 
-    @Query("SELECT * FROM cryptocurrency WHERE _id = :idCoin")
-    suspend fun getOne(idCoin: Int): CryptocurrencyEntity?
+    @Query("SELECT * FROM coin WHERE _id = :idCoin")
+    suspend fun getOne(idCoin: Int): CoinEntity?
 
-    @Query("DELETE FROM cryptocurrency")
+    @Query("DELETE FROM coin")
     suspend fun deleteAll()
 }

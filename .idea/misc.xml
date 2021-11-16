@@ -7,19 +7,24 @@
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/drawable-v24/ic_trending_down_red_24.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/drawable-v24/ic_trending_flat_grey_24.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/drawable-v24/ic_trending_up_green_24.xml" value="0.3769230769230769" />
+        <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/drawable/ic_error_grey_24.xml" value="0.3592592592592593" />
+        <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/drawable/ic_error_screen.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/drawable/ic_image_grey_24.xml" value="0.3769230769230769" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/font/audiowide.xml" value="0.39076923076923076" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/activity_main.xml" value="0.23596014492753623" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/adapter_item.xml" value="0.5" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/content_main.xml" value="0.22735507246376813" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/detail_fragment.xml" value="0.33" />
-        <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/fragment_cryptocurrency.xml" value="0.23143115942028986" />
+        <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/error_screen.xml" value="0.33" />
+        <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/fragment_coins.xml" value="0.21739130434782608" />
+        <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/fragment_cryptocurrency.xml" value="0.33" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/fragment_detail.xml" value="0.33" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/fragment_first.xml" value="0.25317028985507245" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/fragment_second.xml" value="0.2427536231884058" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/fragment_wallet.xml" value="0.2427536231884058" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/layout/item_coin.xml" value="0.25317028985507245" />
         <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/menu/menu_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Leandro.Reis/AndroidStudioProjects/CoinMarketCap/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.22135416666666666" />
       </map>
     </option>
   </component>
