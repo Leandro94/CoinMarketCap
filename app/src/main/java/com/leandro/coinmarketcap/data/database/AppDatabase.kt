@@ -2,13 +2,13 @@ package com.leandro.coinmarketcap.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.leandro.coinmarketcap.data.model.entity.CoinEntity
+import com.leandro.coinmarketcap.data.database.entity.CryptocurrencyEntity
 
 /**
  * Created by Leandro.Reis on 09/11/2021.
  */
-@Database(entities = [CoinEntity::class], version = 1)
-abstract class AppDatabase: RoomDatabase() {
+@Database(entities = [CryptocurrencyEntity::class], version = 1)
+abstract class AppDatabase : RoomDatabase() {
     abstract fun coinDao(): CoinDao
 
     companion object {

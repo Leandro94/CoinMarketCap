@@ -1,8 +1,8 @@
 package com.leandro.coinmarketcap.data.repository
 
 import com.leandro.coinmarketcap.data.database.CoinDao
-import com.leandro.coinmarketcap.data.model.Coin
-import com.leandro.coinmarketcap.data.model.entity.CoinEntity
+import com.leandro.coinmarketcap.data.database.entity.CryptocurrencyEntity
+import com.leandro.coinmarketcap.domain.model.Cryptocurrency
 import javax.inject.Inject
 
 /**
@@ -11,37 +11,19 @@ import javax.inject.Inject
 class LocalRepository @Inject constructor(
     private val dao: CoinDao
 ) : Repository.LocalData {
-    override suspend fun insertAll(coin: Coin): List<Long?> {
-        return dao.insertAll(coin = coin.toEntity())
+    override suspend fun insertAll(cryptocurrencies: List<Cryptocurrency>): List<Long> {
+        return dao.insertAll(cryptocurrencies = cryptocurrencies.toListEntities())
     }
 
-    override suspend fun getForId(id: Int): CoinEntity? {
+    override suspend fun getForId(id: Int): CryptocurrencyEntity? {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getAll(): List<CoinEntity> {
-        TODO("Not yet implemented")
+    override suspend fun getAll(): List<Cryptocurrency>? {
+        return dao.getAll()?.toListCryptocurrency()
     }
 
     override suspend fun deleteAll() {
         TODO("Not yet implemented")
-    }
-
-    private fun Coin.toEntity(): Array<out CoinEntity> {
-        val coinEntity = CoinEntity(
-            _id = this.id.toLong(),
-            id = this.id,
-            symbol = this.symbol,
-            name = this.name,
-            price = this.quote.brl.price,
-            percent_change_1h = this.quote.brl.percent_change_1h,
-            percent_change_24h = this.quote.brl.percent_change_24h,
-            percent_change_7d = this.quote.brl.percent_change_7d,
-            max_supply = this.max_supply,
-            volume_24h = this.quote.brl.volume_24h,
-            circulating_supply = this.circulating_supply,
-            market_cap = this.quote.brl.market_cap
-        )
-        return arrayOf(coinEntity)
     }
 }

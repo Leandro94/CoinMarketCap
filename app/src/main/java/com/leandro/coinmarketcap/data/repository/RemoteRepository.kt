@@ -1,8 +1,9 @@
 package com.leandro.coinmarketcap.data.repository
 
 import com.leandro.coinmarketcap.data.api.ApiService
-import com.leandro.coinmarketcap.data.model.Data
-import retrofit2.Response
+import com.leandro.coinmarketcap.data.api.DataState
+import com.leandro.coinmarketcap.data.api.parseResponse
+import com.leandro.coinmarketcap.domain.model.Cryptocurrency
 import javax.inject.Inject
 
 /**
@@ -11,7 +12,17 @@ import javax.inject.Inject
 class RemoteRepository @Inject constructor(
     private val api: ApiService
 ) : Repository.RemoteData {
-    override suspend fun getCoins(): Response<Data?>? {
-        return api.getCoins()
+    override suspend fun getCoins(): DataState<List<Cryptocurrency>>? {
+        return try {
+            when (val response = api.getCryptocurrencys().parseResponse()) {
+                is DataState.OnSuccess -> response.data?.data?.let { it ->
+                    DataState.OnSuccess(it.responseToListCryptocurrency())
+                }
+                is DataState.OnError -> DataState.OnError(response.errorBody, response.code)
+                is DataState.OnException -> DataState.OnException(response.e)
+            }
+        } catch (e: Exception) {
+            DataState.OnException(e)
+        }
     }
 }

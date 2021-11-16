@@ -25,7 +25,6 @@ object RepositoryModule {
         return RemoteRepository(api)
     }
 
-
     @Singleton
     @Provides
     fun provideLocalRepository(dao: CoinDao): Repository.LocalData {

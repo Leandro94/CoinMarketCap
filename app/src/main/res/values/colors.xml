@@ -8,4 +8,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#DF0909</color>
+
+    <color name="colorPrimary">#1D1D1E</color>
+    <color name="colorAccent">#DF0909</color>
+
+    <color name="colorPositiveValue">#32CD32</color>
+    <color name="colorNegativeValue">#DF0909</color>
+    <color name="colorCardView">#85494747</color>
+    <color name="colorWhite">#FFFFFF</color>
+
+    <color name="colorLineChart">#4A4848</color>
+    <color name="textColor">#C1C1C1</color>
+    <color name="colorBarChart">#BF3030</color>
 </resources>

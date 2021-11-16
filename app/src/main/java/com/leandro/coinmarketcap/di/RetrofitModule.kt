@@ -1,5 +1,6 @@
 package com.leandro.coinmarketcap.di
 
+import com.leandro.coinmarketcap.BuildConfig
 import com.leandro.coinmarketcap.data.api.ApiService
 import com.leandro.coinmarketcap.utils.BASE_URL
 import com.leandro.coinmarketcap.utils.KEY
@@ -31,7 +32,7 @@ object RetrofitModule {
     @Singleton
     @Provides
     fun provideHttpLogging(
-        level: HttpLoggingInterceptor.Level,
+        level: HttpLoggingInterceptor.Level
     ): HttpLoggingInterceptor {
         val logging = HttpLoggingInterceptor()
         logging.level = level
@@ -40,9 +41,7 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(
-        logging: HttpLoggingInterceptor,
-    ): OkHttpClient {
+    fun provideOkHttpClient(logging: HttpLoggingInterceptor): OkHttpClient {
         val client = OkHttpClient.Builder()
             .readTimeout(5, TimeUnit.SECONDS)
             .connectTimeout(5, TimeUnit.SECONDS)
@@ -51,9 +50,9 @@ object RetrofitModule {
                 builder.header(KEY, KEY_VALUE)
                 chain.proceed(builder.build())
             }
-        /*if (BuildConfig.DEBUG) {
+        if (BuildConfig.DEBUG) {
             client.addInterceptor(logging)
-        }*/
+        }
         return client.build()
     }
 

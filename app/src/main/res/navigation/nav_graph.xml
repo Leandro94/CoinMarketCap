@@ -3,26 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/CryptocurrencyFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.leandro.coinmarketcap.ui.CoinsFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/CryptocurrencyFragment"
+        android:name="com.leandro.coinmarketcap.ui.cryptocurrencys.CryptocurrencyFragment"
+        android:label="Criptomoedas"
+        tools:layout="@layout/fragment_cryptocurrency">
+
+        <argument
+            android:name="detailsArgs"
+            app:argType="com.leandro.coinmarketcap.domain.model.Cryptocurrency"
+            app:nullable="true" />
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_Cryptocurrency_to_Detail"
+            app:destination="@id/DetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.leandro.coinmarketcap.ui.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/DetailFragment"
+        android:name="com.leandro.coinmarketcap.ui.details.DetailFragment"
+        android:label="Mais Informações"
+        tools:layout="@layout/fragment_detail">
+
+        <argument
+            android:name="detailsArgs"
+            app:argType="com.leandro.coinmarketcap.domain.model.Cryptocurrency"
+            app:nullable="true" />
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_Detail_to_Cryptocurrency"
+            app:destination="@id/CryptocurrencyFragment" />
     </fragment>
 </navigation>
