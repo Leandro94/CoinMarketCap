@@ -20,7 +20,6 @@ Esse projeto foi desenvolvido em Kotlin, utilizando os seguintes recursos da lin
 - Room
 - Coroutines
 - Data Binding
-- RxJava 2
 - Retrofit 2
 
 ## 💻 Projeto
