@@ -39,3 +39,14 @@ Esse projeto foi desenvolvido em Kotlin, utilizando os seguintes recursos da lin
 * [Room](https://developer.android.com/training/data-storage/room)
 
 * [Retrofit](https://square.github.io/retrofit/)
+
+## Screens
+<kbd>
+<img src="images/screen_capture1.png" width="30%"></img>
+<img src="images/screen_capture2.png" width="30%"></img>
+<img src="images/screen_capture3.png" width="30%"></img>
+<img src="images/screen_capture4.png" width="30%"></img>
+<img src="images/screen_capture5.png" width="30%"></img>
+<img src="images/screen_capture6.png" width="30%"></img>
+<img src="images/screen_capture7.png" width="30%"></img>
+</kbd>
