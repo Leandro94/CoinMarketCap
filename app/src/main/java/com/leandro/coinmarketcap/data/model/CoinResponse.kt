@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by Leandro.Reis on 09/11/2021.
  */
-data class CryptocurrencyResponse(
+data class CoinResponse(
     @SerializedName("id")
-    val id: String,
+    val id: String?,
     @SerializedName("name")
-    val name: String,
+    val name: String?,
     @SerializedName("symbol")
-    val symbol: String,
+    val symbol: String?,
     @SerializedName("max_supply")
     val maxSupply: Double?,
     @SerializedName("circulating_supply")
-    val circulatingSupply: String,
+    val circulatingSupply: String?,
     @SerializedName("quote")
-    val quote: QuoteResponse,
+    val quote: QuoteResponse?,
 )

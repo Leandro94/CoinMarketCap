@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/CryptocurrencyFragment">
+    app:startDestination="@id/CoinsFragment">
 
     <fragment
-        android:id="@+id/CryptocurrencyFragment"
-        android:name="com.leandro.coinmarketcap.ui.cryptocurrencys.CryptocurrencyFragment"
+        android:id="@+id/CoinsFragment"
+        android:name="com.leandro.coinmarketcap.ui.coins.CoinsFragment"
         android:label="Coin Market Cap"
-        tools:layout="@layout/fragment_cryptocurrency">
+        tools:layout="@layout/fragment_coins">
 
         <argument
             android:name="detailsArgs"
-            app:argType="com.leandro.coinmarketcap.domain.model.Cryptocurrency"
+            app:argType="com.leandro.coinmarketcap.domain.model.Coin"
             app:nullable="true" />
 
         <action
-            android:id="@+id/action_Cryptocurrency_to_Detail"
+            android:id="@+id/action_Coins_to_Detail"
             app:destination="@id/DetailFragment" />
     </fragment>
     <fragment
@@ -28,11 +28,11 @@
 
         <argument
             android:name="detailsArgs"
-            app:argType="com.leandro.coinmarketcap.domain.model.Cryptocurrency"
+            app:argType="com.leandro.coinmarketcap.domain.model.Coin"
             app:nullable="true" />
 
         <action
-            android:id="@+id/action_Detail_to_Cryptocurrency"
-            app:destination="@id/CryptocurrencyFragment" />
+            android:id="@+id/action_Detail_to_Coins"
+            app:destination="@id/CoinsFragment" />
     </fragment>
 </navigation>

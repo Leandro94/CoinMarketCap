@@ -8,17 +8,17 @@ import com.google.gson.annotations.SerializedName
 
 data class BrlResponse(
     @SerializedName("price")
-    val price: Double,
+    val price: Double?,
     @SerializedName("percent_change_1h")
-    val percentChange1h: Double,
+    val percentChange1h: Double?,
     @SerializedName("volume_24h")
-    val volume24h: Double,
+    val volume24h: Double?,
     @SerializedName("percent_change_24h")
-    val percentChange24h: Double,
+    val percentChange24h: Double?,
     @SerializedName("percent_change_7d")
-    val percentChange7d: Double,
+    val percentChange7d: Double?,
     @SerializedName("market_cap")
-    val marketCap: Double,
+    val marketCap: Double?,
     @SerializedName("fully_diluted_market_cap")
-    val dilutedMarketCap: Double
+    val dilutedMarketCap: Double?
 )

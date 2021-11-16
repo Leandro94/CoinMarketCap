@@ -2,7 +2,7 @@ package com.leandro.coinmarketcap.domain.usecase
 
 import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.data.repository.LocalRepository
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
+import com.leandro.coinmarketcap.domain.model.Coin
 import javax.inject.Inject
 
 /**
@@ -14,13 +14,13 @@ class SaveLocalListUseCase @Inject constructor(
     BaseUseCase.Params<DataState<List<Long>?>, SaveLocalListUseCase.Params> {
     override suspend fun invoke(params: Params): DataState<List<Long>?> {
         return try {
-            DataState.OnSuccess(params.listCryptocurrency?.let { repository.insertAll(it) })
+            DataState.OnSuccess(params.listCoin?.let { repository.insertAll(it) })
         } catch (e: Exception) {
             DataState.OnException(e)
         }
     }
 
     data class Params(
-        val listCryptocurrency: List<Cryptocurrency>?
+        val listCoin: List<Coin>?
     )
 }

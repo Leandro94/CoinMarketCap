@@ -3,7 +3,7 @@ package com.leandro.coinmarketcap.di
 import android.content.Context
 import androidx.room.Room
 import com.leandro.coinmarketcap.data.database.AppDatabase
-import com.leandro.coinmarketcap.data.database.CryptocurrencyDao
+import com.leandro.coinmarketcap.data.database.CoinDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,7 +32,7 @@ object DatabaseModule {
     @Provides
     fun provideCoinDao(
         db: AppDatabase
-    ): CryptocurrencyDao {
+    ): CoinDao {
         return db.coinDao()
     }
 }

@@ -7,8 +7,8 @@ import androidx.room.PrimaryKey
 /**
  * Created by Leandro.Reis on 09/11/2021.
  */
-@Entity(tableName = "cryptocurrency")
-data class CryptocurrencyEntity(
+@Entity(tableName = "coin")
+data class CoinEntity(
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "_id")
     val _id: Long,

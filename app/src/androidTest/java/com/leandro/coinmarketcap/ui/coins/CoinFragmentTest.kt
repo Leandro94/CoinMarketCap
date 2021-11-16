@@ -1,20 +1,19 @@
-package com.leandro.coinmarketcap.ui.cryptocurrencys
+package com.leandro.coinmarketcap.ui.coins
 
 import android.content.Context
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.SmallTest
 import com.leandro.coinmarketcap.R
 import com.leandro.coinmarketcap.domain.model.Brl
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
+import com.leandro.coinmarketcap.domain.model.Coin
 import com.leandro.coinmarketcap.domain.model.Quote
 import com.leandro.coinmarketcap.launchFragmentInHiltContainer
 import com.leandro.coinmarketcap.utils.IMAGE_URL
@@ -29,13 +28,13 @@ import org.junit.Test
  */
 @HiltAndroidTest
 @SmallTest
-class CryptocurrencyFragmentTest {
+class CoinFragmentTest {
     private lateinit var testContext: Context
 
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
-    private lateinit var fragment: CryptocurrencyFragment
+    private lateinit var fragment: CoinsFragment
 
     private val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
 
@@ -48,42 +47,45 @@ class CryptocurrencyFragmentTest {
 
     @Test
     fun recyclerViewMustBeInitializedAndShowList() {
-        Espresso.onView(withId(R.id.rcv_crypto_fragment))
+        Espresso.onView(withId(R.id.rcv_coins))
             .perform()
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test
     fun recyclerViewMustBeInitializedAndPossibleScroll() {
-        Espresso.onView(withId(R.id.rcv_crypto_fragment))
+        Espresso.onView(withId(R.id.rcv_coins))
             .perform(
-                RecyclerViewActions.scrollToPosition<LocalAdapter.LocalViewHolder>(
+                RecyclerViewActions.scrollToPosition<CoinsAdapter.CoinViewHolder>(
                     2
                 )
             )
     }
 
     @Test
-    fun recyclerViewMustBeInitializedAndPossibleSeeDetailScreenOnClickItem() {
-        Espresso.onView(withId(R.id.rcv_crypto_fragment))
-            .perform(actionOnItemAtPosition<LocalAdapter.LocalViewHolder>(0, ViewActions.click()))
-        Espresso.onView(withId(R.id.cv_item))
+    fun itemActionSearchMustBeInitializedAndShow() {
+        Espresso.onView(withId(R.id.action_search))
             .perform()
             .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
+    @Test
+    fun itemActionSearchClick() {
+        Espresso.onView(withId(R.id.action_search))
+            .perform(click())
+    }
+
     private fun initAdapter() {
-        fragment.localAdapter.clearList()
-        fragment.localAdapter
-            .submitList(getListCryptocurrency())
+        fragment.coinAdapter
+            .submitList(getListCoins())
     }
 
     private fun launchFragment() {
-        launchFragmentInHiltContainer<CryptocurrencyFragment> {
-            fragment = this as CryptocurrencyFragment
+        launchFragmentInHiltContainer<CoinsFragment> {
+            fragment = this as CoinsFragment
             testContext = this.requireContext()
             navController.setGraph(R.navigation.nav_graph)
-            navController.setCurrentDestination(R.id.CryptocurrencyFragment)
+            navController.setCurrentDestination(R.id.CoinsFragment)
             this.viewLifecycleOwnerLiveData.observeForever { lifeCycle ->
                 if (lifeCycle != null) {
                     Navigation.setViewNavController(this.requireView(), navController)
@@ -92,7 +94,7 @@ class CryptocurrencyFragmentTest {
         }
     }
 
-    private fun getListCryptocurrency(): MutableList<Cryptocurrency> {
+    private fun getListCoins(): MutableList<Coin> {
         val brl = Brl(
             349287.4418665296,
             -0.23579847,
@@ -103,7 +105,7 @@ class CryptocurrencyFragmentTest {
             7136608293421.985
         )
         val quote = Quote(brl)
-        val cryptocurrency = Cryptocurrency(
+        val coin = Coin(
             "1",
             "Bitcoin",
             "BTC",
@@ -112,12 +114,12 @@ class CryptocurrencyFragmentTest {
             quote,
             IMAGE_URL + 1 + ".png"
         )
-        val list: ArrayList<Cryptocurrency> = arrayListOf()
-        list.add(cryptocurrency)
-        list.add(cryptocurrency)
-        list.add(cryptocurrency)
-        list.add(cryptocurrency)
-        list.add(cryptocurrency)
+        val list: ArrayList<Coin> = arrayListOf()
+        list.add(coin)
+        list.add(coin)
+        list.add(coin)
+        list.add(coin)
+        list.add(coin)
         return list
     }
 }

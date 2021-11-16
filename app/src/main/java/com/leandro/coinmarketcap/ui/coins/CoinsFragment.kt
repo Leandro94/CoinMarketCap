@@ -1,4 +1,4 @@
-package com.leandro.coinmarketcap.ui.cryptocurrencys
+package com.leandro.coinmarketcap.ui.coins
 
 import android.os.Bundle
 import android.view.*
@@ -11,25 +11,25 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.leandro.coinmarketcap.R
 import com.leandro.coinmarketcap.data.api.DataState
-import com.leandro.coinmarketcap.databinding.FragmentCryptocurrencyBinding
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
+import com.leandro.coinmarketcap.databinding.FragmentCoinsBinding
+import com.leandro.coinmarketcap.domain.model.Coin
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
-class CryptocurrencyFragment : Fragment() {
-    private var _binding: FragmentCryptocurrencyBinding? = null
+class CoinsFragment : Fragment() {
+    private var _binding: FragmentCoinsBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<CryptocurrencyViewModel>()
-    private val searchList = arrayListOf<Cryptocurrency>()
-    private val adapterItemsList = arrayListOf<Cryptocurrency>()
+    private val viewModel by viewModels<CoinsViewModel>()
+    private val searchList = arrayListOf<Coin>()
+    private val adapterItemsList = arrayListOf<Coin>()
 
-    val localAdapter by lazy {
-        LocalAdapter { view, cryptocurrency, position ->
+    val coinAdapter by lazy {
+        CoinsAdapter { view, cryptocurrency, position ->
             when (view.id) {
                 R.id.cv_item -> {
                     val directions =
-                        CryptocurrencyFragmentDirections.actionCryptocurrencyToDetail(cryptocurrency)
+                        CoinsFragmentDirections.actionCoinsToDetail(cryptocurrency)
                     findNavController().navigate(directions)
                 }
             }
@@ -40,7 +40,7 @@ class CryptocurrencyFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentCryptocurrencyBinding.inflate(inflater, container, false)
+        _binding = FragmentCoinsBinding.inflate(inflater, container, false)
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -49,10 +49,10 @@ class CryptocurrencyFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewActionsStartRequest()
-        binding.rcvCryptoFragment.apply {
+        binding.rcvCoins.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
-            adapter = localAdapter
+            adapter = coinAdapter
         }
         setListeners()
         initObservers()
@@ -61,8 +61,9 @@ class CryptocurrencyFragment : Fragment() {
     private fun setListeners() {
         with(binding) {
             srlRefresh.setOnRefreshListener {
+                binding.rcvCoins.visibility = View.GONE
                 viewActionsStartRequest()
-                viewModel.getRemoteList()
+                srlRefresh.postDelayed({ viewModel.getRemoteList() }, 500)
             }
             screenError.btnErrorRefresh.setOnClickListener {
                 viewActionsStartRequest()
@@ -72,16 +73,10 @@ class CryptocurrencyFragment : Fragment() {
     }
 
     private fun viewActionsStartRequest() {
-        //binding.rcvCryptoFragment.visibility = View.GONE
+        binding.screenError.root.visibility = View.GONE
         binding.pgbRequest.visibility = View.VISIBLE
         binding.srlRefresh.isRefreshing = false
-        binding.screenError.root.visibility = View.GONE
-    }
 
-    private fun viewActionsDatabaseEmpty() {
-        binding.rcvCryptoFragment.visibility = View.GONE
-        binding.pgbRequest.visibility = View.GONE
-        binding.screenError.root.visibility = View.VISIBLE
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -104,13 +99,13 @@ class CryptocurrencyFragment : Fragment() {
                         adapterItemsList.forEach {
                             if (it.name.lowercase(Locale.getDefault()).contains(search)) {
                                 searchList.add(it)
-                                localAdapter.clearList()
-                                localAdapter.submitList(searchList)
+                                coinAdapter.clearList()
+                                coinAdapter.submitListDistinct(searchList)
                             }
                         }
                     } else {
-                        localAdapter.clearList()
-                        localAdapter.submitList(adapterItemsList)
+                        coinAdapter.clearList()
+                        coinAdapter.submitListDistinct(adapterItemsList)
                     }
                     return true
                 }
@@ -140,7 +135,7 @@ class CryptocurrencyFragment : Fragment() {
         })
     }
 
-    private fun updateListRecyclerView(list: List<Cryptocurrency>?) {
+    private fun updateListRecyclerView(list: List<Coin>?) {
         if (list.isNullOrEmpty()) {
             (activity as AppCompatActivity?)?.supportActionBar?.hide()
             viewActionsDatabaseEmpty()
@@ -148,19 +143,23 @@ class CryptocurrencyFragment : Fragment() {
         }
         (activity as AppCompatActivity?)?.supportActionBar?.show()
         checkVisibilityViews()
-
-        localAdapter.clearList()
-        localAdapter.submitList(list as MutableList<Cryptocurrency>?)
+        coinAdapter.clearList()
+        coinAdapter.submitListDistinct(list as MutableList<Coin>?)
         adapterItemsList.clear()
         adapterItemsList.addAll(list)
+    }
+
+    private fun viewActionsDatabaseEmpty() {
+        binding.pgbRequest.visibility = View.GONE
+        binding.screenError.root.visibility = View.VISIBLE
     }
 
     private fun checkVisibilityViews() {
         if (binding.screenError.root.visibility != View.GONE) {
             binding.screenError.root.visibility = View.GONE
         }
-        if (binding.rcvCryptoFragment.visibility != View.VISIBLE) {
-            binding.rcvCryptoFragment.visibility = View.VISIBLE
+        if (binding.rcvCoins.visibility != View.VISIBLE) {
+            binding.rcvCoins.visibility = View.VISIBLE
         }
     }
 

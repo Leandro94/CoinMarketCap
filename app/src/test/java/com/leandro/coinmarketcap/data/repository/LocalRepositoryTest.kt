@@ -1,12 +1,8 @@
 package com.leandro.coinmarketcap.data.repository
 
 import androidx.room.withTransaction
-import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.data.database.AppDatabase
-import com.leandro.coinmarketcap.data.database.entity.CryptocurrencyEntity
-import com.leandro.coinmarketcap.domain.usecase.GetLocalListUseCase
-import com.leandro.coinmarketcap.domain.usecase.GetRemoteListUseCase
-import com.leandro.coinmarketcap.domain.usecase.SaveLocalListUseCase
+import com.leandro.coinmarketcap.data.database.entity.CoinEntity
 import com.leandro.coinmarketcap.utils.IMAGE_URL
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
@@ -33,15 +29,6 @@ class LocalRepositoryTest {
     private lateinit var repository: Repository.LocalData
 
     private val testDispatcher = TestCoroutineDispatcher()
-
-    @MockK
-    private lateinit var getLocalListUseCase: GetLocalListUseCase
-
-    @MockK
-    private lateinit var getRemoteListUseCase: GetRemoteListUseCase
-
-    @MockK
-    private lateinit var saveListUseCase: SaveLocalListUseCase
 
     @Before
     fun setup() {
@@ -72,13 +59,13 @@ class LocalRepositoryTest {
         runBlockingTest {
             val result = repository.getAll()
 
-            assertEquals(getListEntity().toListCryptocurrency(), result)
+            assertEquals(getListEntity().toListCoin(), result)
         }
 
     @Test
-    fun `repository should fetch all database data and return success with a list equal to the one enteredds`() =
+    fun `after an insertion in the database the repository must return a valid id list`() =
         runBlockingTest {
-            val result = repository.insertAll(getListEntity().toListCryptocurrency())
+            val result = repository.insertAll(getListEntity().toListCoin())
 
             assertEquals(getListLong(), result)
         }
@@ -89,8 +76,8 @@ class LocalRepositoryTest {
         return list
     }
 
-    private fun getListEntity(): List<CryptocurrencyEntity> {
-        val entity = CryptocurrencyEntity(
+    private fun getListEntity(): List<CoinEntity> {
+        val entity = CoinEntity(
             _id = 1,
             id = "1",
             symbol = "BTC",
@@ -106,7 +93,7 @@ class LocalRepositoryTest {
             imgUrl = IMAGE_URL + 1 + ".png",
             dilutedMarketCap = 44745445.44
         )
-        val list: ArrayList<CryptocurrencyEntity> = arrayListOf()
+        val list: ArrayList<CoinEntity> = arrayListOf()
         list.add(entity)
         return list
     }

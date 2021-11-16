@@ -8,5 +8,5 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class Data(
-    val data: List<Cryptocurrency>? = null
+    val data: List<Coin>
 ) : Parcelable

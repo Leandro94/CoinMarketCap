@@ -3,7 +3,7 @@ package com.leandro.coinmarketcap.domain
 import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.data.repository.LocalRepository
 import com.leandro.coinmarketcap.domain.model.Brl
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
+import com.leandro.coinmarketcap.domain.model.Coin
 import com.leandro.coinmarketcap.domain.model.Quote
 import com.leandro.coinmarketcap.domain.usecase.SaveLocalListUseCase
 import com.leandro.coinmarketcap.utils.IMAGE_URL
@@ -40,9 +40,9 @@ class SaveLocalListUseCaseTest {
     @Test
     fun `useCase should call the repository and get a successful answer`() = runBlockingTest {
         coEvery {
-            repository.insertAll(getListCryptocurrency())
+            repository.insertAll(getListCoins())
         } returns getListLong()
-        val result = useCase.invoke(SaveLocalListUseCase.Params(getListCryptocurrency()))
+        val result = useCase.invoke(SaveLocalListUseCase.Params(getListCoins()))
         assert(result is DataState.OnSuccess)
     }
 
@@ -50,14 +50,14 @@ class SaveLocalListUseCaseTest {
     fun `useCase should call the repository and get a exception answer`() =
         runBlockingTest {
             coEvery {
-                repository.insertAll(getListCryptocurrency())
+                repository.insertAll(getListCoins())
             } returns getListLong()
 
-            val result = useCase.invoke(SaveLocalListUseCase.Params(getListCryptocurrencyIsEmpty()))
+            val result = useCase.invoke(SaveLocalListUseCase.Params(getListCoinsIsEmpty()))
             assert(result is DataState.OnException)
         }
 
-    private fun getListCryptocurrency(): List<Cryptocurrency> {
+    private fun getListCoins(): List<Coin> {
         val brl = Brl(
             349287.4418665296,
             -0.23579847,
@@ -68,7 +68,7 @@ class SaveLocalListUseCaseTest {
             7136608293421.985
         )
         val quote = Quote(brl)
-        val cryptocurrency = Cryptocurrency(
+        val coin = Coin(
             "1",
             "Bitcoin",
             "BTC",
@@ -77,12 +77,12 @@ class SaveLocalListUseCaseTest {
             quote,
             IMAGE_URL + 1 + ".png"
         )
-        val list: ArrayList<Cryptocurrency> = arrayListOf()
-        list.add(cryptocurrency)
+        val list: ArrayList<Coin> = arrayListOf()
+        list.add(coin)
         return list
     }
 
-    private fun getListCryptocurrencyIsEmpty(): List<Cryptocurrency> {
+    private fun getListCoinsIsEmpty(): List<Coin> {
         return arrayListOf()
     }
 

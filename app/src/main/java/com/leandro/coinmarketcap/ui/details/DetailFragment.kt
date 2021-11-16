@@ -14,7 +14,7 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.leandro.coinmarketcap.R
 import com.leandro.coinmarketcap.databinding.FragmentDetailBinding
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
+import com.leandro.coinmarketcap.domain.model.Coin
 import com.leandro.coinmarketcap.utils.formatDoubleToStringCurrencyWithSymbol
 import com.leandro.coinmarketcap.utils.getProgressDrawable
 import com.leandro.coinmarketcap.utils.loadImage
@@ -25,7 +25,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
     private val args by navArgs<DetailFragmentArgs>()
-    private lateinit var cryptocurrency: Cryptocurrency
+    private lateinit var coin: Coin
     private val entries = ArrayList<BarEntry>()
 
     override fun onCreateView(
@@ -38,9 +38,9 @@ class DetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        args.detailsArgs?.let { cryptocurrency = it }
+        args.detailsArgs?.let { coin = it }
 
-        if (!this::cryptocurrency.isInitialized) {
+        if (!this::coin.isInitialized) {
             findNavController().popBackStack()
             return
         }
@@ -50,27 +50,27 @@ class DetailFragment : Fragment() {
     }
 
     private fun setInfosLayout() {
-        entries.add(BarEntry(1f, cryptocurrency.quote.brl.percentChange1h.toFloat()))
-        entries.add(BarEntry(2f, cryptocurrency.quote.brl.percentChange24h.toFloat()))
-        entries.add(BarEntry(3f, cryptocurrency.quote.brl.percentChange7d.toFloat()))
+        entries.add(BarEntry(1f, coin.quote.brl.percentChange1h.toFloat()))
+        entries.add(BarEntry(2f, coin.quote.brl.percentChange24h.toFloat()))
+        entries.add(BarEntry(3f, coin.quote.brl.percentChange7d.toFloat()))
         configBarData()
 
         with(binding) {
-            tvSymbol.text = cryptocurrency.symbol
-            tvCoinName.text = cryptocurrency.name
+            tvSymbol.text = coin.symbol
+            tvCoinName.text = coin.name
             tvValueMarketCapDiluted.text =
-                formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.dilutedMarketCap)
-            tvPrice.text = formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.price)
+                formatDoubleToStringCurrencyWithSymbol(coin.quote.brl.dilutedMarketCap)
+            tvPrice.text = formatDoubleToStringCurrencyWithSymbol(coin.quote.brl.price)
             tvValueVolume24h.text =
-                formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.volume24h)
+                formatDoubleToStringCurrencyWithSymbol(coin.quote.brl.volume24h)
             tvValueMarketCap.text =
-                formatDoubleToStringCurrencyWithSymbol(cryptocurrency.quote.brl.marketCap)
-            cryptocurrency.quote.brl.marketCap
+                formatDoubleToStringCurrencyWithSymbol(coin.quote.brl.marketCap)
+            coin.quote.brl.marketCap
             tvValueCirculatingSupply.text =
-                cryptocurrency.circulatingSupply
+                coin.circulatingSupply
             context?.let {
                 ivCoin.loadImage(
-                    cryptocurrency.imgUrl,
+                    coin.imgUrl,
                     getProgressDrawable(it)
                 )
             }

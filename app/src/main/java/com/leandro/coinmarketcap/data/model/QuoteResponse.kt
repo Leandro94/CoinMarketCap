@@ -7,5 +7,5 @@ import com.google.gson.annotations.SerializedName
  */
 data class QuoteResponse(
     @SerializedName("BRL")
-    val blr: BrlResponse
+    val blr: BrlResponse?
 )

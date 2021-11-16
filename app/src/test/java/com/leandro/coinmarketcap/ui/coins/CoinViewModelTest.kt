@@ -1,9 +1,9 @@
-package com.leandro.coinmarketcap.ui.cryptocurrencys
+package com.leandro.coinmarketcap.ui.coins
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.domain.model.Brl
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
+import com.leandro.coinmarketcap.domain.model.Coin
 import com.leandro.coinmarketcap.domain.model.Data
 import com.leandro.coinmarketcap.domain.model.Quote
 import com.leandro.coinmarketcap.domain.usecase.GetLocalListUseCase
@@ -31,11 +31,11 @@ import retrofit2.Response
  * Created by Leandro.Reis on 12/11/2021.
  */
 @ExperimentalCoroutinesApi
-class CryptocurrencyViewModelTest {
+class CoinViewModelTest {
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    private lateinit var viewModel: CryptocurrencyViewModel
+    private lateinit var viewModel: CoinsViewModel
 
     private val testDispatcher = TestCoroutineDispatcher()
 
@@ -49,7 +49,7 @@ class CryptocurrencyViewModelTest {
     fun setup() {
         Dispatchers.setMain(testDispatcher)
         init(this)
-        viewModel = CryptocurrencyViewModel(getRemoteListUseCase, getLocalListUseCase)
+        viewModel = CoinsViewModel(getRemoteListUseCase, getLocalListUseCase)
     }
 
     @After
@@ -62,12 +62,12 @@ class CryptocurrencyViewModelTest {
         runBlockingTest {
             coEvery {
                 getRemoteListUseCase.invoke()
-            } returns DataState.OnSuccess(getListCryptocurrency())
+            } returns DataState.OnSuccess(getListCoins())
 
             viewModel.getRemoteList()
 
             viewModel.getRemoteListEvent.observeForever { result ->
-                assertEquals(DataState.OnSuccess(getListCryptocurrency()), result)
+                assertEquals(DataState.OnSuccess(getListCoins()), result)
             }
         }
 
@@ -104,12 +104,12 @@ class CryptocurrencyViewModelTest {
         runBlockingTest {
             coEvery {
                 getLocalListUseCase.invoke()
-            } returns DataState.OnSuccess(getListCryptocurrency())
+            } returns DataState.OnSuccess(getListCoins())
 
             viewModel.getLocalList()
 
             viewModel.getLocalListEvent.observeForever { result ->
-                assertEquals(DataState.OnSuccess(getListCryptocurrency()), result)
+                assertEquals(DataState.OnSuccess(getListCoins()), result)
             }
         }
 
@@ -131,7 +131,7 @@ class CryptocurrencyViewModelTest {
         return Response.error(401, "".toResponseBody("application/json".toMediaType()))
     }
 
-    private fun getListCryptocurrency(): List<Cryptocurrency> {
+    private fun getListCoins(): List<Coin> {
         val brl = Brl(
             349287.4418665296,
             -0.23579847,
@@ -142,7 +142,7 @@ class CryptocurrencyViewModelTest {
             7136608293421.985
         )
         val quote = Quote(brl)
-        val cryptocurrency = Cryptocurrency(
+        val coins = Coin(
             "1",
             "Bitcoin",
             "BTC",
@@ -151,8 +151,8 @@ class CryptocurrencyViewModelTest {
             quote,
             IMAGE_URL + 1 + ".png"
         )
-        val list: ArrayList<Cryptocurrency> = arrayListOf()
-        list.add(cryptocurrency)
+        val list: ArrayList<Coin> = arrayListOf()
+        list.add(coins)
         return list
     }
 }

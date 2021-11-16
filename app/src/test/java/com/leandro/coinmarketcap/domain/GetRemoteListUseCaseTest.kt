@@ -3,7 +3,7 @@ package com.leandro.coinmarketcap.domain
 import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.data.repository.RemoteRepository
 import com.leandro.coinmarketcap.domain.model.Brl
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
+import com.leandro.coinmarketcap.domain.model.Coin
 import com.leandro.coinmarketcap.domain.model.Data
 import com.leandro.coinmarketcap.domain.model.Quote
 import com.leandro.coinmarketcap.domain.usecase.GetRemoteListUseCase
@@ -50,9 +50,9 @@ class GetRemoteListUseCaseTest {
         runBlockingTest {
             coEvery {
                 repository.getCoins()
-            } returns DataState.OnSuccess(getListCryptocurrency())
+            } returns DataState.OnSuccess(getListCoins())
             coEvery {
-                saveLocalListUseCase.invoke(SaveLocalListUseCase.Params(getListCryptocurrency()))
+                saveLocalListUseCase.invoke(SaveLocalListUseCase.Params(getListCoins()))
             } returns DataState.OnSuccess(getListLong())
             val result = useCase.invoke()
             assert(result is DataState.OnSuccess)
@@ -63,9 +63,9 @@ class GetRemoteListUseCaseTest {
         runBlockingTest {
             coEvery {
                 repository.getCoins()
-            } returns DataState.OnSuccess(getListCryptocurrency())
+            } returns DataState.OnSuccess(getListCoins())
             coEvery {
-                saveLocalListUseCase.invoke(SaveLocalListUseCase.Params(getListCryptocurrency()))
+                saveLocalListUseCase.invoke(SaveLocalListUseCase.Params(getListCoins()))
             } returns DataState.OnException(Exception())
             val result = useCase.invoke()
             assert(result is DataState.OnSuccess)
@@ -99,7 +99,7 @@ class GetRemoteListUseCaseTest {
         return list
     }
 
-    private fun getListCryptocurrency(): List<Cryptocurrency> {
+    private fun getListCoins(): List<Coin> {
         val brl = Brl(
             349287.4418665296,
             -0.23579847,
@@ -110,10 +110,10 @@ class GetRemoteListUseCaseTest {
             7136608293421.985
         )
         val quote = Quote(brl)
-        val cryptocurrency = Cryptocurrency("1", "Bitcoin", "BTC", 21000000.00, "18871550", quote,
+        val coin = Coin("1", "Bitcoin", "BTC", 21000000.00, "18871550", quote,
             IMAGE_URL + 1 + ".png")
-        val list: ArrayList<Cryptocurrency> = arrayListOf()
-        list.add(cryptocurrency)
+        val list: ArrayList<Coin> = arrayListOf()
+        list.add(coin)
         return list
     }
 }

@@ -4,13 +4,10 @@ import com.leandro.coinmarketcap.data.api.ApiService
 import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.data.api.parseResponse
 import com.leandro.coinmarketcap.data.model.BrlResponse
-import com.leandro.coinmarketcap.data.model.CryptocurrencyResponse
+import com.leandro.coinmarketcap.data.model.CoinResponse
 import com.leandro.coinmarketcap.data.model.DataResponse
 import com.leandro.coinmarketcap.data.model.QuoteResponse
-import com.leandro.coinmarketcap.domain.model.Brl
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
-import com.leandro.coinmarketcap.domain.model.Quote
-import com.leandro.coinmarketcap.utils.IMAGE_URL
+import com.leandro.coinmarketcap.utils.LIMIT
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
@@ -47,7 +44,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a successful response`() = runBlockingTest {
         coEvery {
-            api.getCoins()
+            api.getCoins(LIMIT)
         } returns Response.success(getData())
 
         val result = repository.getCoins()
@@ -58,7 +55,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a error response`() = runBlockingTest {
         coEvery {
-            api.getCoins()
+            api.getCoins(LIMIT)
         } returns getResponseError()
 
         val result = repository.getCoins()
@@ -69,7 +66,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a exception response`() = runBlockingTest {
         coEvery {
-            api.getCoins().parseResponse()
+            api.getCoins(LIMIT).parseResponse()
         } throws Exception()
 
         val result = repository.getCoins()
@@ -80,7 +77,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a exception response `() = runBlockingTest {
         coEvery {
-            api.getCoins()
+            api.getCoins(LIMIT)
         } throws Exception()
 
         val result = repository.getCoins()
@@ -103,10 +100,10 @@ class RemoteRepositoryTest {
             7136608293421.985
         )
         val quote = QuoteResponse(brl)
-        val cryptocurrency =
-            CryptocurrencyResponse("1", "Bitcoin", "BTC", 21000000.00, "18871550", quote)
-        val list: ArrayList<CryptocurrencyResponse> = arrayListOf()
-        list.add(cryptocurrency)
+        val coin =
+            CoinResponse("1", "Bitcoin", "BTC", 21000000.00, "18871550", quote)
+        val list: ArrayList<CoinResponse> = arrayListOf()
+        list.add(coin)
         return DataResponse(list)
     }
 }

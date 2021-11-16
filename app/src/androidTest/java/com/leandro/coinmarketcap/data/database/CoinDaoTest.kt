@@ -2,13 +2,13 @@ package com.leandro.coinmarketcap.data.database
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.filters.SmallTest
-import com.leandro.coinmarketcap.data.database.entity.CryptocurrencyEntity
+import com.leandro.coinmarketcap.data.database.entity.CoinEntity
 import com.leandro.coinmarketcap.data.repository.toListEntities
 import com.leandro.coinmarketcap.domain.model.Brl
-import com.leandro.coinmarketcap.domain.model.Cryptocurrency
+import com.leandro.coinmarketcap.domain.model.Coin
 import com.leandro.coinmarketcap.domain.model.Quote
 import com.leandro.coinmarketcap.launchFragmentInHiltContainer
-import com.leandro.coinmarketcap.ui.cryptocurrencys.CryptocurrencyFragment
+import com.leandro.coinmarketcap.ui.coins.CoinsFragment
 import com.leandro.coinmarketcap.utils.IMAGE_URL
 import com.leandro.coinmarketcap.utils.formatDoubleToDecimalTwoPlaces
 import dagger.hilt.android.testing.HiltAndroidRule
@@ -28,7 +28,7 @@ import javax.inject.Named
 @SmallTest
 @HiltAndroidTest
 @ExperimentalCoroutinesApi
-class CryptocurrencyDaoTest {
+class CoinDaoTest {
     @get:Rule
     var hiltRule = HiltAndroidRule(this)
 
@@ -38,7 +38,7 @@ class CryptocurrencyDaoTest {
     @Inject
     @Named(AppDatabase.DATABASE_NAME)
     lateinit var database: AppDatabase
-    private lateinit var dao: CryptocurrencyDao
+    private lateinit var dao: CoinDao
 
     @Before
     fun setup() {
@@ -60,7 +60,7 @@ class CryptocurrencyDaoTest {
     fun getListOnDataBase() = runBlockingTest {
         insertOnDataBase()
         val list = dao.getAll()
-        assert(list == getListCryptocurrency())
+        assert(list == getListCoins())
     }
 
     @Test
@@ -73,14 +73,14 @@ class CryptocurrencyDaoTest {
 
     @Test
     fun testLaunchFragmentInHiltContainer() {
-        launchFragmentInHiltContainer<CryptocurrencyFragment> { }
+        launchFragmentInHiltContainer<CoinsFragment> { }
     }
 
     private suspend fun insertOnDataBase() {
-        dao.insertAll(getListCryptocurrency())
+        dao.insertAll(getListCoins())
     }
 
-    private fun getListCryptocurrency(): List<CryptocurrencyEntity> {
+    private fun getListCoins(): List<CoinEntity> {
         val brl = Brl(
             formatDoubleToDecimalTwoPlaces(349287.4418665296),
             formatDoubleToDecimalTwoPlaces(-0.23579847),
@@ -91,7 +91,7 @@ class CryptocurrencyDaoTest {
             7136608293421.985
         )
         val quote = Quote(brl)
-        val cryptocurrency = Cryptocurrency(
+        val coin = Coin(
             "1",
             "Bitcoin",
             "BTC",
@@ -100,8 +100,8 @@ class CryptocurrencyDaoTest {
             quote,
             IMAGE_URL + 1 + ".png"
         )
-        val list: ArrayList<Cryptocurrency> = arrayListOf()
-        list.add(cryptocurrency)
+        val list: ArrayList<Coin> = arrayListOf()
+        list.add(coin)
         return list.toListEntities()
     }
 }
