@@ -47,7 +47,6 @@ class CoinsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewActionsStartRequest()
         binding.rcvCoins.apply {
             setHasFixedSize(true)
@@ -100,12 +99,12 @@ class CoinsFragment : Fragment() {
                             if (it.name.lowercase(Locale.getDefault()).contains(search)) {
                                 searchList.add(it)
                                 coinAdapter.clearList()
-                                coinAdapter.submitListDistinct(searchList)
+                                coinAdapter.submitList(searchList)
                             }
                         }
                     } else {
                         coinAdapter.clearList()
-                        coinAdapter.submitListDistinct(adapterItemsList)
+                        coinAdapter.submitList(adapterItemsList)
                     }
                     return true
                 }
@@ -144,7 +143,8 @@ class CoinsFragment : Fragment() {
         (activity as AppCompatActivity?)?.supportActionBar?.show()
         checkVisibilityViews()
         coinAdapter.clearList()
-        coinAdapter.submitListDistinct(list as MutableList<Coin>?)
+        coinAdapter.submitList(list as MutableList<Coin>?)
+
         adapterItemsList.clear()
         adapterItemsList.addAll(list)
     }
