@@ -40,16 +40,6 @@ class DetailFragmentTest {
         launchFragment()
     }
 
-    @Test
-    fun recyclerViewMustBeInitializedAndPossibleScroll() {
-        Espresso.onView(ViewMatchers.withId(R.id.csl_detail_fragment))
-            .perform(
-                RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                    20
-                )
-            )
-    }
-
     @ExperimentalCoroutinesApi
     private fun launchFragment() {
         launchFragmentInHiltContainer<DetailFragment> {
