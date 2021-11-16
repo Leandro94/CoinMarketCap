@@ -44,7 +44,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a successful response`() = runBlockingTest {
         coEvery {
-            api.getCoins(LIMIT)
+            api.getCoins()
         } returns Response.success(getData())
 
         val result = repository.getCoins()
@@ -55,7 +55,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a error response`() = runBlockingTest {
         coEvery {
-            api.getCoins(LIMIT)
+            api.getCoins()
         } returns getResponseError()
 
         val result = repository.getCoins()
@@ -66,7 +66,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a exception response`() = runBlockingTest {
         coEvery {
-            api.getCoins(LIMIT).parseResponse()
+            api.getCoins().parseResponse()
         } throws Exception()
 
         val result = repository.getCoins()
@@ -77,7 +77,7 @@ class RemoteRepositoryTest {
     @Test
     fun `repository should call the service and get a exception response `() = runBlockingTest {
         coEvery {
-            api.getCoins(LIMIT)
+            api.getCoins()
         } throws Exception()
 
         val result = repository.getCoins()
