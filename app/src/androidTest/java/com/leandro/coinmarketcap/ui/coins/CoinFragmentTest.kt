@@ -62,19 +62,6 @@ class CoinFragmentTest {
             )
     }
 
-    @Test
-    fun itemActionSearchMustBeInitializedAndShow() {
-        Espresso.onView(withId(R.id.action_search))
-            .perform()
-            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-    }
-
-    @Test
-    fun itemActionSearchClick() {
-        Espresso.onView(withId(R.id.action_search))
-            .perform(click())
-    }
-
     private fun initAdapter() {
         fragment.coinAdapter
             .submitListTest(getListCoins())
