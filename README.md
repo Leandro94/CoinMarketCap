@@ -2,9 +2,8 @@
    Coin Market Cap
 </h1>
 
-<p align="center">
   <img alt="splash" src=".github/coin_gif.gif" width="25%">
-</p>
+
 
 ## ⚠️ Instruções
 
