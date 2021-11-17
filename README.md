@@ -2,10 +2,6 @@
    Coin Market Cap
 </h1>
 
-<p align="center">
-  <img alt="list" src=".github/list.jpg" width="25%">
-  <img alt="detail" src=".github/details.jpg" width="25%">
-</p>
 
 ## ⚠️ Instruções
 
