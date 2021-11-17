@@ -110,8 +110,10 @@ class GetRemoteListUseCaseTest {
             7136608293421.985
         )
         val quote = Quote(brl)
-        val coin = Coin("1", "Bitcoin", "BTC", 21000000.00, "18871550", quote,
-            IMAGE_URL + 1 + ".png")
+        val coin = Coin(
+            "1", "Bitcoin", "BTC", 21000000.00, "18871550", quote,
+            IMAGE_URL + 1 + ".png"
+        )
         val list: ArrayList<Coin> = arrayListOf()
         list.add(coin)
         return list

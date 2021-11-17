@@ -19,15 +19,15 @@ fun List<CoinResponse>.responseToListCoin(): List<Coin> {
 
 fun CoinResponse.toCoin(): Coin {
     val quote = Quote(
-        brl = this.quote?.blr?.toBrl() ?:
-        Brl(
+        brl = this.quote?.blr?.toBrl() ?: Brl(
             0.00,
             0.00,
             0.00,
             0.00,
             0.00,
             0.00,
-            0.00)
+            0.00
+        )
     )
     return Coin(
         id = id ?: "",

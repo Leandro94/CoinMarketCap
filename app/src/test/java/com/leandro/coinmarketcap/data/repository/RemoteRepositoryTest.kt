@@ -7,7 +7,6 @@ import com.leandro.coinmarketcap.data.model.BrlResponse
 import com.leandro.coinmarketcap.data.model.CoinResponse
 import com.leandro.coinmarketcap.data.model.DataResponse
 import com.leandro.coinmarketcap.data.model.QuoteResponse
-import com.leandro.coinmarketcap.utils.LIMIT
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK

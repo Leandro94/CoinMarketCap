@@ -4,7 +4,6 @@ import com.leandro.coinmarketcap.data.api.ApiService
 import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.data.api.parseResponse
 import com.leandro.coinmarketcap.domain.model.Coin
-import com.leandro.coinmarketcap.utils.LIMIT
 import javax.inject.Inject
 
 /**

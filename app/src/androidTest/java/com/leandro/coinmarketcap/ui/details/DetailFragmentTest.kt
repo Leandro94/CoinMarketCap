@@ -3,11 +3,7 @@ package com.leandro.coinmarketcap.ui.details
 import android.content.Context
 import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.filters.SmallTest
 import com.leandro.coinmarketcap.R
 import com.leandro.coinmarketcap.launchFragmentInHiltContainer
@@ -16,7 +12,6 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
 
 /**
  * Created by Leandro.Reis on 16/11/2021.
