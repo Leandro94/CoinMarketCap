@@ -39,4 +39,3 @@ Esse projeto foi desenvolvido em Kotlin, utilizando os seguintes recursos da lin
 
 * [Retrofit](https://square.github.io/retrofit/)
 
-## Screens
