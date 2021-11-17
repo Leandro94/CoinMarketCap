@@ -4,8 +4,6 @@
 
 <p align="center">
   <img alt="splash" src=".github/coin_gif.gif" width="25%">
-  <img alt="list" src=".github/list.jpg" width="25%">
-  <img alt="detail" src=".github/details.jpg" width="25%">
 </p>
 
 ## ⚠️ Instruções
