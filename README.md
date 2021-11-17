@@ -35,3 +35,4 @@ Esse projeto foi desenvolvido em Kotlin, utilizando os seguintes recursos da lin
 
 * [Retrofit](https://square.github.io/retrofit/)
 
+![Screenrecorder-2021-11-16-22-19-00-945_1_](https://user-images.githubusercontent.com/7034344/142091874-c53cffc5-07bd-4c11-8e72-55674115d8dc.gif)
