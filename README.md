@@ -3,7 +3,7 @@
 </h1>
 
   <img alt="splash" src=".github/coin_gif.gif" width="25%">
-
+! [] (.github/coin_gif.gif)
 
 ## ⚠️ Instruções
 
