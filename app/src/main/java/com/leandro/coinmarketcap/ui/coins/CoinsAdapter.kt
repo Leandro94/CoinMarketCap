@@ -102,14 +102,15 @@ class CoinsAdapter(
         super.submitList(list?.distinct())
         list?.let {
             this.list.addAll(it)
-            notifyItemRangeChanged(0, list.size)
         }
     }
 
+    fun submitListTest(list: MutableList<Coin>) {
+        this.submitList(list)
+    }
+
     fun clearList() {
-        val size = list.size
         list.clear()
-        notifyItemRangeRemoved(0, size)
     }
 
     fun getList() = list

@@ -1,8 +1,9 @@
 package com.leandro.coinmarketcap.ui.coins
 
 import android.os.Bundle
-import android.view.*
-import android.widget.SearchView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -14,15 +15,12 @@ import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.databinding.FragmentCoinsBinding
 import com.leandro.coinmarketcap.domain.model.Coin
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
 
 @AndroidEntryPoint
 class CoinsFragment : Fragment() {
     private var _binding: FragmentCoinsBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<CoinsViewModel>()
-    private val searchList = arrayListOf<Coin>()
-    private val adapterItemsList = arrayListOf<Coin>()
 
     val coinAdapter by lazy {
         CoinsAdapter { view, cryptocurrency, position ->
@@ -41,7 +39,6 @@ class CoinsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCoinsBinding.inflate(inflater, container, false)
-        setHasOptionsMenu(true)
         return binding.root
     }
 
@@ -75,41 +72,6 @@ class CoinsFragment : Fragment() {
         binding.screenError.root.visibility = View.GONE
         binding.pgbRequest.visibility = View.VISIBLE
         binding.srlRefresh.isRefreshing = false
-
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.menu_main, menu)
-        val menuItem = menu.findItem(R.id.action_search)
-
-        if (menuItem != null) {
-            val searchView = menuItem.actionView as SearchView
-            searchView.queryHint = getString(R.string.action_search)
-            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String?): Boolean {
-                    return true
-                }
-
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    if (newText!!.isNotEmpty() && !adapterItemsList.isNullOrEmpty()) {
-                        searchList.clear()
-                        val search = newText.lowercase(Locale.getDefault())
-                        adapterItemsList.forEach {
-                            if (it.name.lowercase(Locale.getDefault()).contains(search)) {
-                                searchList.add(it)
-                                coinAdapter.clearList()
-                                coinAdapter.submitList(searchList)
-                            }
-                        }
-                    } else {
-                        coinAdapter.clearList()
-                        coinAdapter.submitList(adapterItemsList)
-                    }
-                    return true
-                }
-            })
-        }
     }
 
     private fun initObservers() {
@@ -144,9 +106,6 @@ class CoinsFragment : Fragment() {
         checkVisibilityViews()
         coinAdapter.clearList()
         coinAdapter.submitList(list as MutableList<Coin>?)
-
-        adapterItemsList.clear()
-        adapterItemsList.addAll(list)
     }
 
     private fun viewActionsDatabaseEmpty() {

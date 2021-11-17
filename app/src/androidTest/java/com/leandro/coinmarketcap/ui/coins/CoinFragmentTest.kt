@@ -77,7 +77,7 @@ class CoinFragmentTest {
 
     private fun initAdapter() {
         fragment.coinAdapter
-            .submitList(getListCoins())
+            .submitListTest(getListCoins())
     }
 
     private fun launchFragment() {
