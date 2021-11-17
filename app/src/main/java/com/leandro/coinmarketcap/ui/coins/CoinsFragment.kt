@@ -14,6 +14,7 @@ import com.leandro.coinmarketcap.R
 import com.leandro.coinmarketcap.data.api.DataState
 import com.leandro.coinmarketcap.databinding.FragmentCoinsBinding
 import com.leandro.coinmarketcap.domain.model.Coin
+import com.leandro.coinmarketcap.utils.navigateWithAnimations
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,7 +29,7 @@ class CoinsFragment : Fragment() {
                 R.id.cv_item -> {
                     val directions =
                         CoinsFragmentDirections.actionCoinsToDetail(cryptocurrency)
-                    findNavController().navigate(directions)
+                    findNavController().navigateWithAnimations(directions)
                 }
             }
         }
